@@ -1,0 +1,22 @@
+{
+  "name": "rest-api-com-nodejs",
+  "version": "1.0.0",
+  "description": "A simple REST API build with NodeJs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenriqueHendel/REST-API-com-NodeJs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenriqueHendel/REST-API-com-NodeJs/issues"
+  },
+  "homepage": "https://github.com/HenriqueHendel/REST-API-com-NodeJs#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
