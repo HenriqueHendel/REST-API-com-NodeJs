@@ -3,14 +3,26 @@
     const app = express();
     const produtos = require("./routes/produtos");
     const pedidos = require("./routes/pedidos");
+    const morgan = require("morgan");
+
+    app.use(morgan("dev"));
 
     app.use("/produtos", produtos);
     app.use("/pedidos", pedidos);
-    app.use("/teste",(req,res,next)=>{
-        res.status(200).send({
-            message:"Ok"
+
+    app.use((req,res,next)=>{
+        const error = new Error("Essa rota não existe");
+        error.status = 404;
+        next(error);
+    })
+
+    app.use((error,req,res,next)=>{
+        res.status(error.status || 500);
+
+        return res.send({
+            message:error.message
         })
-    });
+    })
 
 
 // Definindo server
