@@ -1,9 +1,12 @@
 // Carregando módulos
     const express = require("express");
     const app = express();
+    const produtos = require("./routes/produtos");
+    const pedidos = require("./routes/pedidos");
 
-
-    app.use((req,res,next)=>{
+    app.use("/produtos", produtos);
+    app.use("/pedidos", pedidos);
+    app.use("/teste",(req,res,next)=>{
         res.status(200).send({
             message:"Ok"
         })
