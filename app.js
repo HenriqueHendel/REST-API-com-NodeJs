@@ -5,7 +5,10 @@
     const pedidos = require("./routes/pedidos");
     const morgan = require("morgan");
     const bodyParser = require("body-parser");
-
+    const db = require("./models/connection.js");
+    const Produtos = require("./models/produtos.js");
+    const Pedidos = require("./models/pedidos.js");
+    
     app.use(morgan("dev"));
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
