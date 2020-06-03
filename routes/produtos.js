@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mysql = require("../mysql").pool;
 
 // Rota para listar produtos
 router.get("/",(req,res,next)=>{
@@ -14,7 +15,7 @@ router.post("/", (req,res,next)=>{
         nome: req.body.nome,
         preco: req.body.preco
     }
-
+    
     res.status(201).send({
         message: "Usando o POST dentro da rota de produtos",
         pedidoCriado: produto
