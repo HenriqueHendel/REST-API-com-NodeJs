@@ -1,7 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("../mysql").pool;
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+    dest:(req,file,cb)=>{
+        cb(null,"uploads/");
+    },
+    filename: (req,file,cb)=>{
+        cb(null, file.originalname);
+    }
+});
+
+const filter = (req,file,cb)=>{
+    if(file.mimetype==='image/png' || file.mimetype==='image.jpeg'){
+        cb(null,true);
+    }else{
+        cb(null,false);
+    }
+};
+
+const upload = multer({storage:storage});
+ 
 // Rota para listar produtos
 router.get("/",(req,res,next)=>{
     mysql.getConnection((error,conn)=>{
@@ -21,6 +41,7 @@ router.get("/",(req,res,next)=>{
                         id_produto:prod.id_produto,
                         nome: prod.nome,
                         preco:prod.preco,
+                        imagem_produto: prod.produto_image,
                         request:{
                             tipo:"GET",
                             descricao:"Retorna todos os produtos",
@@ -36,11 +57,12 @@ router.get("/",(req,res,next)=>{
 });
 
 // Rota para adicionar produtos
-router.post("/", (req,res,next)=>{
+router.post("/", upload.single("produto_imagem"), (req,res,next)=>{
+    console.log(req.file);
     mysql.getConnection((erro,conn)=>{
         if(erro){return res.status(500).send({error:erro})};
-        conn.query("INSERT INTO produtos (nome, preco) values (?,?)",
-        [req.body.nome, req.body.preco],
+        conn.query("INSERT INTO produtos (nome, preco, produto_image) values (?,?,?)",
+        [req.body.nome, req.body.preco, req.file.path],
         (error,result,field)=>{
             conn.release();
             if(error){
