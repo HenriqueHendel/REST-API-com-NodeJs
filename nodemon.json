@@ -4,6 +4,8 @@
        "MYSQL_PASSWORD":"phone8.1",
        "MYSQL_DATABASE":"api",
        "MYSQL_HOST":"localhost",
-       "MYSQL_PORT":3306
+       "MYSQL_PORT":3306,
+
+       "JWT_KEY":"segredo"
     }
 }
