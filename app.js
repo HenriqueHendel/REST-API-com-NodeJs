@@ -3,6 +3,7 @@
     const app = express();
     const produtos = require("./routes/produtos");
     const pedidos = require("./routes/pedidos");
+    const usuarios = require("./routes/usuarios");
     const morgan = require("morgan");
     const bodyParser = require("body-parser");
     const db = require("./models/connection.js");
@@ -29,6 +30,7 @@
 
     app.use("/produtos", produtos);
     app.use("/pedidos", pedidos);
+    app.use("/usuarios",usuarios);
 
     app.use((req,res,next)=>{
         log();
